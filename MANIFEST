@@ -10,4 +10,4 @@ typemap
 amamp_binding/amamp_binding.c
 amamp_binding/amamp_binding.h
 amamp_binding/Makefile.PL
-examples/example.pl
+META.yml                                 Module meta-data (added by MakeMaker)

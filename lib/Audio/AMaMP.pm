@@ -10,7 +10,7 @@ our @ISA = qw(Exporter);
 
 our @EXPORT = qw();
 
-our $VERSION = '0.01';
+our $VERSION = '0.3';
 
 require XSLoader;
 XSLoader::load('Audio::AMaMP', $VERSION);
@@ -133,6 +133,7 @@ sub isCoreAlive {
 
 1;
 __END__
+# Below is stub documentation for your module. You'd better edit it!
 
 =head1 NAME
 
@@ -168,19 +169,23 @@ and receiving messages either in a blocking or a non-blocking fashion.
 Messages can be sent and taken from the queue either in plain text or in
 a hash based structure.
 
-=head2 EXPORT
+=head1 EXPORT
 
 None by default.
 
-=head3 METHODS
+=head1 METHODS
 
 =item new
+
   $amamp = Audio::AMaMP->new;
+
 Creates a new instance of the AMaMP core binding. Note that this call
 alone does not start the core; you subsequently need to call startCore.
 
 =item startCore
+
   $success = $amamp->startCore('/usr/bin/amamp', 'myinputfile.amamp;);
+
 Attempts to start the AMaMP core executable (the location of which is
 specified by the first parameter) with the input file specified by the
 second parameter. It is acceptable to use relative paths for each of
@@ -189,6 +194,7 @@ that just because you get a success return value doesn't mean all is
 well - you need to monitor the message queue for any error messages.
 
 =item sendMessage
+
   $success = $amamp->sendMessage(
       type        => 'core',
       parameters  =>
@@ -197,6 +203,7 @@ well - you need to monitor the message queue for any error messages.
 	      id        => '1234'
           }
   );
+
 Sends a message to the core. Expects two named parameters. The first is
 named type and is the type of the message to send (see IPC specification
 for a list of valid types). The second is named parameters and is a
@@ -207,7 +214,9 @@ mean it is valid. If an invalid message is sent, the core will drop it
 and send an invalid message warning.
 
 =item sendRawMessage
+
   $success = $amamp->sendRawMessage($message);
+
 Sends a message to the core. Takes a single parameter which is the
 message, in plain text, to be sent. Returns a non-zero value if the
 message was sent or zero if there was an error and it could not be
@@ -216,7 +225,9 @@ valid. If an invalid message is sent, the core will drop it and send
 an invalid message warning.
 
 =item getMessage
+
   %message = $amamp->getMessgae($block);
+
 Attempts to get a message from the core. Takes a single parameter that
 controls whether the call blocks. A value of zero will cause the method
 to return immediately if there is no message. An empty hash will be
@@ -227,7 +238,9 @@ occurs, e.g. when the core has terminated. Otherwise, it will wait until
 a message is available before returning.
 
 =item getRawMessage
+
   $message = $amamp->getRawMessage($block);
+
 Attempts to get a message from the core in plain text format. Takes a
 single parameter that controls whether the call blocks. A value of zero
 will call the method to return immediately if there is no message. undef
@@ -238,7 +251,9 @@ terminated. Otherwise it will wait until a message is available before
 returning.
 
 =item isCoreAlive
+
   print "Core has not terminated" if $amamp->isCoreAlive;
+
 Checks if the AMaMP core is still "alive", e.g. if it has terminated.
 If it has terminated, 0 is returned. If it is still alive, a non-zero
 value is returned. Note that just because the core is no longer alive
